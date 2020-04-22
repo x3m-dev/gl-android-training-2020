@@ -4,6 +4,12 @@
 #include <stdlib.h> 
 #include <string.h> 
 
+typedef struct {
+    const char *gamer1_choise; // <- typo
+    const char *gamer2_choice;
+    const char *explanation;
+} WINNING_COMBINATION;
+
 bool is_good_option(std::string & user_input) {
     static const char *good_options[] = {
         "r", "p", "s", "q"
@@ -45,6 +51,19 @@ const char * get_option_name_by_code(const char *option_code) {
 int main() {
 
     std::cout << "Rock / Paper / Scissors gambling game (single player - human vs computer) @ Bot Inc." << std::endl;
+    /*
+     *  Scissors cuts paper
+     * Paper covers rock.
+     *  Rock crushes lizard.
+     *  Lizard poisons Spock. Spock smashes scissors. Scissors decapitates lizard. Lizard eats paper. Paper disproves Spock. Spock vaporizes rock. 
+     * Rock crushes scissors.     
+     */
+    WINNING_COMBINATION winning_combinations[] = {
+        {"s", "p", "Scissors cuts paper"},
+        {"p", "r", "Paper covers rock"},
+        {"r", "s", "Rock crushes scissors"}
+    };
+
 
 
     while (1) {
@@ -65,7 +84,25 @@ int main() {
                 << ", I choose " << get_option_name_by_code(bot_choice.c_str())
                 << std::endl;
 
-        //TODO: add decision logic here
+
+        std::string game_resolution = "No winner";
+        std::string resolution_explanation = "equal(?) answers";
+        for(auto combination: winning_combinations){
+            if(user_choice == combination.gamer1_choise && bot_choice == combination.gamer2_choice){
+                game_resolution = "You won";
+                resolution_explanation = combination.explanation;
+                break;
+            }
+        }
+        for(auto combination: winning_combinations){
+            if(bot_choice == combination.gamer1_choise && user_choice == combination.gamer2_choice){
+                game_resolution = "I won";
+                resolution_explanation = combination.explanation;
+                break;
+            }
+        }
+        
+        std::cout << game_resolution << " - " << resolution_explanation << std::endl;
         
     }
 
