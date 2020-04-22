@@ -33,6 +33,14 @@ const char * bot_picks() {
     return game_options[ rand() % NUMBER_OF_GAME_OPTIONS ].short_option;
 }
 
+const char * get_option_name_by_code(const char *option_code) {
+    for (auto option : game_options) {
+        if (strcmp(option.short_option, option_code) == 0) {
+            return option.name;
+        }
+    }
+    return "unk";
+}
 
 int main() {
 
@@ -53,8 +61,8 @@ int main() {
         std::string bot_choice = bot_picks();
 
         std::cout
-                << "You choose " << user_choice
-                << ", I choose " << bot_choice
+                << "You choose " << get_option_name_by_code(user_choice.c_str())
+                << ", I choose " << get_option_name_by_code(bot_choice.c_str())
                 << std::endl;
 
         //TODO: add decision logic here
