@@ -1,0 +1,2 @@
+rootProject.name='Setings Service'
+include ':app'
