@@ -13,17 +13,17 @@ public class SettingsService extends Service {
     int brightness = 0;
     String SVC = "GL-LAB-SVC";
 
-    SettingsInterface.Stub svc = new SettingsInterface.Stub(){
+    SettingsInterface.Stub svc = new SettingsInterface.Stub() {
 
         @Override
         public void setBrightness(int level) throws RemoteException {
-            Log.e(SVC,"client sets brightness: "+ level);
+            Log.e(SVC, "client sets brightness: " + level);
             brightness = level;
         }
 
         @Override
         public int getBrightness() throws RemoteException {
-            Log.e(SVC,"client gets brightness: "+brightness);
+            Log.e(SVC, "client gets brightness: " + brightness);
             return brightness;
         }
     };
@@ -40,13 +40,13 @@ public class SettingsService extends Service {
     public void onCreate() {
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         brightness = preferences.getInt("brightness", 0);
-        Log.e(SVC,"restored brightness "+brightness);
+        Log.e(SVC, "restored brightness " + brightness);
         super.onCreate();
     }
 
     @Override
     public void onDestroy() {
-        Log.e(SVC, "bye. storing brightness "+brightness);
+        Log.e(SVC, "bye. storing brightness " + brightness);
         SharedPreferences.Editor edit = preferences.edit();
         edit.putInt("brightness", brightness);
         edit.apply();

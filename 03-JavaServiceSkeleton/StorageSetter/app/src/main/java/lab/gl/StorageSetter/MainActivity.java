@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         public void onServiceConnected(ComponentName name, IBinder service) {
             settings = SettingsInterface.Stub.asInterface(service);
             try {
-                edBrightness.setText(""+settings.getBrightness());
+                edBrightness.setText("" + settings.getBrightness());
             } catch (RemoteException | NullPointerException e) {
                 e.printStackTrace();
                 err(e);
@@ -41,17 +41,17 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    void ok(){
+    void ok() {
         lblStatus.setText("OK");
     }
 
-    void err(Exception e){
-        Log.e(TAG, "exce: "+ e.getMessage());
+    void err(Exception e) {
+        Log.e(TAG, "exce: " + e.getMessage());
         lblStatus.setText("exception : " + e.getMessage());
 
     }
 
-    void err(String err){
+    void err(String err) {
         Log.e(TAG, err);
         lblStatus.setText(err);
     }
@@ -76,8 +76,8 @@ public class MainActivity extends AppCompatActivity {
                     settings.setBrightness(newBrightness);
                     ok();
 
-                } catch (NumberFormatException | RemoteException | NullPointerException e){
-                    err("set new value failed " + newValue + " - "+e.getMessage());
+                } catch (NumberFormatException | RemoteException | NullPointerException e) {
+                    err("set new value failed " + newValue + " - " + e.getMessage());
                 }
             }
         });
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    edBrightness.setText(""+settings.getBrightness());
+                    edBrightness.setText("" + settings.getBrightness());
                     ok();
                 } catch (RemoteException | NullPointerException e) {
                     err(e);
@@ -100,8 +100,8 @@ public class MainActivity extends AppCompatActivity {
         intent.setClassName("lab.gl.svc_pkg", "dev.x3m.SettingsService");
         try {
             bindService(intent, connection, BIND_AUTO_CREATE);
-        } catch(SecurityException e){
-            Log.e(TAG, "oops: "+ e.getMessage());
+        } catch (SecurityException e) {
+            Log.e(TAG, "oops: " + e.getMessage());
             err(e);
         }
 

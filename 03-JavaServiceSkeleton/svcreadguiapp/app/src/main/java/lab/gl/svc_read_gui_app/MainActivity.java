@@ -28,23 +28,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         lblBrighness = (TextView) findViewById(R.id.lblBrightnessValue);
-        Button btn = (Button)findViewById(R.id.btnRefresh);
+        Button btn = (Button) findViewById(R.id.btnRefresh);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(settingsService== null){
+                if (settingsService == null) {
                     Log.e(GUI, "bail out");
                     return;
                 }
 
                 try {
                     int brightness = settingsService.getBrightness();
-                    lblBrighness.setText(""+brightness);
+                    lblBrighness.setText("" + brightness);
 
-                    Log.e(GUI, "got "+brightness);
+                    Log.e(GUI, "got " + brightness);
 
                 } catch (RemoteException e) {
-                    Log.e(GUI, "exception: "+ e.getMessage() );
+                    Log.e(GUI, "exception: " + e.getMessage());
                     e.printStackTrace();
                 }
 
@@ -68,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
         intent.setClassName("lab.gl.svc_pkg", "dev.x3m.SettingsService");
         try {
             bindService(intent, conn, BIND_AUTO_CREATE);
-        } catch(SecurityException e){
-            Log.e(GUI, "oops: "+ e.getMessage());
+        } catch (SecurityException e) {
+            Log.e(GUI, "oops: " + e.getMessage());
         }
 
     }
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(conn!=null) {
+        if (conn != null) {
             unbindService(conn);
         }
     }
